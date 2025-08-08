@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Classifier</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            width: 100%;
+            background: #28a745;
+            color: white;
+            padding: 12px;
+            border: none;
+            margin-top: 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div style="
+    display: flex;
+    justify-content: flex-end;
+    background-color: #eee;
+    padding: 1rem;
+    ">
+        <a href="{{ url_for('guide') }}">
+            <button style="
+                padding: 10px 20px;
+                font-size: 16px;
+                background-color: #28a745;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            ">
+                Guide
+            </button>
+        </a>
+    </div>
+
+    <div class="container">
+        <h2>Heart Disease Prediction</h2>
+        <form action="/predict" method="POST">
+            <label for="age">Age</label>
+            <input type="number" name="age" required>
+
+            <label for="sex">Sex</label>
+            <select name="sex" required>
+                <option value="1">Male</option>
+                <option value="0">Female</option>
+            </select>
+
+            <label for="cp">Chest Pain Type</label>
+            <select name="cp" required>
+                <option value="0">Typical Angina</option>
+                <option value="1">Atypical Angina</option>
+                <option value="2">Non-Anginal Pain</option>
+                <option value="3">Asymptomatic</option>
+            </select>
+
+            <label for="trestbps">Resting Blood Pressure</label>
+            <input type="number" name="trestbps" required>
+
+            <label for="chol">Serum Cholesterol</label>
+            <input type="number" name="chol" required>
+
+            <label for="fbs">Fasting Blood Sugar > 120 mg/dl</label>
+            <select name="fbs" required>
+                <option value="1">True</option>
+                <option value="0">False</option>
+            </select>
+
+            <label for="restecg">Resting ECG</label>
+            <select name="restecg" required>
+                <option value="0">Normal</option>
+                <option value="1">ST-T Wave Abnormality</option>
+            </select>
+
+            <label for="thalach">Max Heart Rate Achieved</label>
+            <input type="number" name="thalach" required>
+
+            <label for="exang">Exercise Induced Angina</label>
+            <select name="exang" required>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+
+            <label for="oldpeak">ST Depression</label>
+            <input type="number" name="oldpeak" step="0.1" required>
+
+            <label for="slope">Slope of ST Segment</label>
+            <select name="slope" required>
+                <option value="0">Upsloping</option>
+                <option value="1">Flat</option>
+                <option value="2">Downsloping</option>
+            </select>
+
+            <label for="ca">Major Vessels Colored by Fluoroscopy</label>
+            <input type="number" name="ca" min="0" max="3" required>
+
+            <label for="thal">Thalassemia Type</label>
+            <select name="thal" required>
+                <option value="0">Normal</option>
+                <option value="1">Fixed Defect</option>
+                <option value="2">Reversible Defect</option>
+            </select>
+
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if prediction is not none %}
+        <div class="result">
+            <p>Prediction: <strong>{{ prediction }}</strong></p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
